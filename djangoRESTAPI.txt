@@ -1,0 +1,35 @@
+from snippets.models import Snippet
+from snippets.serializers import SnippetSerializer
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+
+snippet = Snippet(code='foo = "bar"\n')
+snippet.save()
+			+++++++Process Of Serialization+++++++
+We've now got a few snippet instances to play with. Let's take a look at serializing one of those instances.
+
+serializer = SnippetSerializer(snippet)
+serializer.data
+
+
+At this point we've translated the model instance into Python native datatypes. To finalize the serialization process we render the data into json.
+
+content = JSONRenderer().render(serializer.data)
+content
+
+			+++++++++Deserialization+++++++++
+Deserialization is similar. First we parse a stream into Python native datatypes...
+import io
+
+stream = io.BytesIO(content)
+data = JSONParser().parse(stream)
+
+...then we restore those native datatypes into a fully populated object instance.
+
+serializer = SnippetSerializer(data=data)
+serializer.is_valid()
+# True
+serializer.validated_data
+# OrderedDict([('title', ''), ('code', 'print("hello, world")\n'), ('linenos', False), ('language', 'python'), ('style', 'friendly')])
+serializer.save()
+# <Snippet: Snippet object>

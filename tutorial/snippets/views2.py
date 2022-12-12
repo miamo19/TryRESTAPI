@@ -7,13 +7,13 @@ from rest_framework.response import Response
 
 @api_view(['GET', 'POST'])
 def snippet_list2(request, format=None):
-    #List all code snippets
+    #This condition permit to List all code snippets
     if request.method == "GET":
         snippets = Snippet.objects.all()
         serializer = SnippetSerializer(snippets, many=True)
         return Response(serializer.data)
     
-    #create a new snippet
+    #This condition permit to create a new snippet
     elif request.method == "POST":
         serializer = SnippetSerializer(data=request.data)
         if serializer.is_valid():
@@ -28,12 +28,12 @@ def snippet_detail2(request, pk, format=None):
     except Snippet.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    #Retrieve
+    #This condition permit to Retrieve a code snippet
     if request.method == "GET":
         serializer = SnippetSerializer(snippets)
         return Response(serializer.data)
     
-    #Update
+    #This condition permit to Update a code snippet
     elif request.method == "PUT":
         serializer = SnippetSerializer(snippets, data=request.data)
         if serializer.is_valid():
@@ -41,7 +41,7 @@ def snippet_detail2(request, pk, format=None):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    #Delete
+    #This condition permit to Delete a code snippet
     elif request.method == "DELETE":
         snippets.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

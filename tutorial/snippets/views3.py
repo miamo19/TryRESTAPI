@@ -14,11 +14,13 @@ from rest_framework.response import Response
 #       +++++classBased APIView++++++
 class SnippetList(APIView):
     
+    #This function permit to list all the code snippets 
     def get(self, request, format=None):
         snippet = Snippet.objects.all()
         serializer = SnippetSerializer(snippet, many=True)
         return Response(serializer.data)
     
+    #This function permit to create (post) a code snippet
     def post(self, request, format=None):
         serializer = SnippetSerializer(data=request.data)
         if serializer.is_valid():
@@ -36,11 +38,13 @@ class SnippetDetail(APIView):
         except Snippet.DoesNotExist:
             raise Http404
     
+    #This function permit to retrieve a code snippet
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = SnippetSerializer(snippet)
         return Response(serializer.data)
     
+    #This function permit to Update a code snippet
     def put(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = SnippetSerializer(snippet, data=request.data)
@@ -49,6 +53,7 @@ class SnippetDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    #This function permit to delete (destroy) a code snippet
     def delete(self, request, pk, format=None):
         snippet = self.get_object(pk)
         snippet.delete()

@@ -11,13 +11,13 @@ from rest_framework.parsers import  JSONParser
 @csrf_exempt
 def snippet_list(request):
  
-    #List all code snippets.   
+    #List all code snippets is display by this condition in this function   
     if request.method == 'GET':
         snippet     = Snippet.objects.all()
         serializer  = SnippetSerializer(snippet, many=True)
         return JsonResponse(serializer.data, safe=False)
     
-    #create a new snippet.
+    #This condition permit to create a new snippet.
     elif request.method == 'POST':
         data        = JSONParser().parse(request)
         serializer  = SnippetSerializer(data=data)
@@ -32,12 +32,12 @@ def snippet_detail(request, pk):
     except Snippet.DoesNotExist:
         return HttpResponse(status=404)
     
-    #Retrieve
+    #This condition permit to Retrieve a code snippet
     if request.method == 'GET':
         serializer = SnippetSerializer(snippet)
         return JsonResponse(serializer.data, safe=False)
     
-    #Update
+    #This condition permit to Update a code snippet
     elif request.method == "PUT":
         data = JSONParser().parse(request)
         serializer = SnippetSerializer(snippet, data=data)
@@ -46,7 +46,7 @@ def snippet_detail(request, pk):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
         
-    #Delete
+    #This condition permit to Delete a code snippet
     elif request.method == "DELETE":
         snippet.delete()
         return HttpResponse(status=204)

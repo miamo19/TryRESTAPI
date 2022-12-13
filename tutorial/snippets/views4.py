@@ -18,11 +18,11 @@ class SnippetList(mixins.ListModelMixin,
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
     
-    #function to list all the available code snippets
+    #method to list all the available code snippets
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
     
-    #function to create a code snippet
+    #method to create a code snippet
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
     
@@ -59,6 +59,10 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 
 class SnippetListCreate(generics.ListCreateAPIView):
+  """
+  name        : SnippetListCreate
+  description : This class will create a code snippet and list all code snippets
+  """
     queryset         = Snippet.objects.all()
     serializer_class = SnippetSerializer
     
@@ -66,6 +70,10 @@ class SnippetListCreate(generics.ListCreateAPIView):
         serializer.save(ower=self.request.user)
     
 class SnippetAllDetail(generics.RetrieveUpdateDestroyAPIView):
+  """
+  name        : SnippetAllDetail
+  description : This class will Reterieve, Update and Delete a code snippets
+  """
     queryset         = Snippet.objects.all()
     serializer_class = SnippetSerializer
     

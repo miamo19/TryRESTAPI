@@ -27,7 +27,8 @@ class SnippetList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+ 
+#create a name variable for the class to be use in urls.py
 snippet_view_list = SnippetList.as_view()
     
 class SnippetDetail(APIView):

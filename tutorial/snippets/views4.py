@@ -77,12 +77,19 @@ class SnippetAllDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset         = Snippet.objects.all()
     serializer_class = SnippetSerializer
     
-#
-    
+#API for users 
 class UserList(generics.ListAPIView):
+  """
+  name        : UserList
+  description : This class will list all Users
+  """
     queryset         = User.objects.all()
     serializer_class = UserSerializer
     
 class UserDetail(generics.RetrieveAPIView):
+  """
+  name        : UserList
+  description : This class will Retrieve a particular User
+  """
     queryset = User.objects.all()
     serializer_class = UserSerializer

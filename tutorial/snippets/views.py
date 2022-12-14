@@ -11,7 +11,7 @@ from rest_framework.parsers import  JSONParser
 @csrf_exempt
 def snippet_list(request):
  
-    #List all code snippets is display by this condition in this function   
+    #This condition List all code snippets
     if request.method == 'GET':
         snippet     = Snippet.objects.all()
         serializer  = SnippetSerializer(snippet, many=True)
